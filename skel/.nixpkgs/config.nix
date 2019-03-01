@@ -1,4 +1,6 @@
 {
+  allowUnfree = true;
+  
   packageOverrides = pkgs: rec {
     apps = pkgs.buildEnv {
       name = "apps";

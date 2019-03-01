@@ -10,6 +10,8 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
+  nixpkgs.config.allowUnfree = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -47,9 +49,20 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
+
+  hardware.bumblebee.enable = true;
+  hardware.enableRedistributableFirmware = true;
+
   # Enable sound.
   sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    support32Bit = true;
+  };
 
   services.xserver = {
     enable = true;
