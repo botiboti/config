@@ -10,7 +10,9 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -26,7 +28,6 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # environment.systemPackages = with pkgs; [
   #   wget vim
   # ];
 
@@ -52,6 +53,7 @@
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
+    extraPackages = [ pkgs.vaapiIntel ];
   };
 
   hardware.bumblebee.enable = true;
@@ -75,9 +77,10 @@
       horizTwoFingerScroll = true;
       palmDetect = true;
       additionalOptions = ''
-        Option "VertScrollDelta" "-15"
-        Option "HorizScrollDelta" "-15"
+        Option "VertScrollDelta" "-20"
+        Option "HorizScrollDelta" "-20"
       '';
+      accelFactor = "0.1";
     };
   };
 
