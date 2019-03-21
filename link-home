@@ -1,0 +1,4 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash -p stow
+set -e; set -x
+stow botiboti --dir=./home --target=/home/botiboti --no-folding
