@@ -14,6 +14,8 @@
     allowUnfree = true;
   };
 
+  programs.light.enable = true;
+ 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -77,8 +79,8 @@
       horizTwoFingerScroll = true;
       palmDetect = true;
       additionalOptions = ''
-        Option "VertScrollDelta" "-20"
-        Option "HorizScrollDelta" "-20"
+        Option "VertScrollDelta" "-40"
+        Option "HorizScrollDelta" "-40"
       '';
       accelFactor = "0.1";
     };

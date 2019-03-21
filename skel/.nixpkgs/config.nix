@@ -10,7 +10,7 @@
     apps = pkgs.buildEnv {
       name = "apps";
       paths = with pkgs; [
-        steam w3m tmux atom chromium git
+        binutils networkmanager_dmenu volumeicon gcc w3m tmux atom chromium git
       ];
     };
   };
