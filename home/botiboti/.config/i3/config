@@ -5,7 +5,10 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-exec "volumeicon" 
+exec "volumeicon"
+
+bindsym XF86MonBrightnessUp exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
 
 # i3 config file (v4)
 #
