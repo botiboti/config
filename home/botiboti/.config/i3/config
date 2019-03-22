@@ -9,6 +9,8 @@ exec "volumeicon"
 
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
+  
+bindsym XF86Sleep exec slock
 
 # i3 config file (v4)
 #
