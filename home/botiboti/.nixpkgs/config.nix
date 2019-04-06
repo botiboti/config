@@ -3,7 +3,7 @@
 
   chromium = {
     enablePepperFlash = true;
-    enablePepperPDF = true;
+    # enablePepperPDF = true;
   };
 
   packageOverrides = pkgs: rec {
