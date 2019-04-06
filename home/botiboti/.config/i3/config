@@ -6,13 +6,14 @@
 #
 
 exec "volumeicon"
-exec "setxkbmap -layout us,hu"
-exec "setxkbmap -option 'grp:alt_shift_toggle'"
+# exec "setxkbmap -layout us,hu"
+# exec "setxkbmap -option 'grp:alt_shift_toggle'"
+exec --no-startup-id setxkbmap -model pc105 -layout us,hu -option grp:switch
 
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
-bindsym XF86Sleep exec slock
+bindsym --release XF86Sleep exec slock
 
 # i3 config file (v4)
 #
