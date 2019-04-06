@@ -80,12 +80,17 @@
       horizTwoFingerScroll = true;
       palmDetect = true;
       additionalOptions = ''
-        Option "VertScrollDelta" "-40"
-        Option "HorizScrollDelta" "-40"
+        Option "VertScrollDelta" "-70"
+        Option "HorizScrollDelta" "-70"
       '';
       accelFactor = "0.1";
     };
   };
+
+   fonts = {
+     enableFontDir = true;
+     fonts = with pkgs; [ corefonts terminus_font terminus_font_ttf ubuntu_font_family carlito hasklig mononoki fira fira-code fira-code-symbols fira-mono source-sans-pro source-serif-pro source-code-pro noto-fonts noto-fonts-cjk noto-fonts-emoji ];
+   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.botiboti = {
