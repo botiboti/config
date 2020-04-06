@@ -73,7 +73,7 @@
     enable = true;
     layout = "us";
     windowManager.i3.enable = true;
-    displayManager.slim.enable = true;
+    displayManager.gdm.enable = true;
     synaptics = {
       enable = true;
       vertTwoFingerScroll = true;
