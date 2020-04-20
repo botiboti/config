@@ -16,6 +16,7 @@
 
   programs.light.enable = true;
   programs.slock.enable = true;
+  programs.sway.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -87,16 +88,16 @@
     };
   };
 
-   fonts = {
-     enableFontDir = true;
-     fonts = with pkgs; [ corefonts terminus_font terminus_font_ttf ubuntu_font_family carlito hasklig mononoki fira fira-code fira-code-symbols fira-mono source-sans-pro source-serif-pro source-code-pro noto-fonts noto-fonts-cjk noto-fonts-emoji ];
-   };
+  fonts = {
+    enableFontDir = true;
+    fonts = with pkgs; [ corefonts terminus_font terminus_font_ttf ubuntu_font_family carlito hasklig mononoki fira fira-code fira-code-symbols fira-mono source-sans-pro source-serif-pro source-code-pro noto-fonts noto-fonts-cjk noto-fonts-emoji ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.botiboti = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "video" "sway"];
   };
 
   # This value determines the NixOS release with which your system is to be
