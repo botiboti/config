@@ -68,6 +68,7 @@
   hardware.pulseaudio = {
     enable = true;
     support32Bit = true;
+    package = pkgs.pulseaudioFull;
   };
 
   services.xserver = {
@@ -84,9 +85,16 @@
         Option "VertScrollDelta" "-70"
         Option "HorizScrollDelta" "-70"
       '';
-      accelFactor = "0.1";
+      accelFactor = "0.09";
     };
   };
+
+  # Enable bluetooth services
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  # Enable teamviewer services
+  services.teamviewer.enable = true;
 
   fonts = {
     enableFontDir = true;
