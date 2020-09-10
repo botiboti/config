@@ -8,30 +8,31 @@ general {
 
 #order += "ipv6"
 order += "battery 0"
-order += "wireless wlp58s0"
+order += "wireless _first_"
 order += "disk /"
 #order += "disk /home"
 #order += "run_watch DHCP"
 #order += "run_watch VPN"
-#order += "ethernet eth0"
+order += "ethernet _first_"
 order += "cpu_usages"
 order += "load"
 #order += "cpu_temperature 0"
 order += "tztime utc"
 #order += "tztime hu"
 order += "tztime ro"
+order += "tztime pt"
 #order += "time"
 
-wireless wlp58s0 {
+wireless _first_ {
   format_up = " %quality %ip %essid "
-  format_down = " DOWN "
+  format_down = " W: down "
 }
 
-ethernet eth0 {
+ethernet _first_ {
   # if you use %speed, i3status requires root privileges
-  #format_up = "e %ip (%speed)"
-  format_up = " e %ip "
-  format_down = " e down "
+  #format_up = "E %ip (%speed)"
+  #format_up = " e %ip "
+  format_down = " E down "
 }
 
 battery 0 {
@@ -84,4 +85,9 @@ tztime hu {
 tztime ro {
   timezone = "Europe/Bucharest"
   format = " %H:%M RO "
+}
+
+tztime pt {
+  timezone = "Europe/Lisbon"
+  format = " %H:%M PT "
 }

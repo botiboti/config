@@ -28,7 +28,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "Europe/Bucharest";
+  time.timeZone = "Europe/Lisbon";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -93,11 +93,30 @@
   services.blueman.enable = true;
 
   # Enable teamviewer services
-  services.teamviewer.enable = true;
+  #services.teamviewer.enable = true;
 
   fonts = {
     enableFontDir = true;
-    fonts = with pkgs; [ corefonts terminus_font terminus_font_ttf ubuntu_font_family carlito hasklig mononoki fira fira-code fira-code-symbols fira-mono source-sans-pro source-serif-pro source-code-pro noto-fonts noto-fonts-cjk noto-fonts-emoji ];
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+      carlito
+      corefonts
+      fira
+      fira-code
+      fira-code-symbols
+      fira-mono
+      hasklig
+      mononoki
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      source-code-pro
+      source-sans-pro
+      source-serif-pro
+      terminus_font
+      terminus_font_ttf
+      ubuntu_font_family
+    ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
