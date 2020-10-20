@@ -58,8 +58,10 @@
     enable = true;
     driSupport32Bit = true;
     extraPackages = [ pkgs.vaapiIntel ];
-  };
+    setLdLibraryPath = true; 
+};
 
+  
   hardware.bumblebee.enable = true;
   hardware.enableRedistributableFirmware = true;
 
@@ -93,7 +95,7 @@
   services.blueman.enable = true;
 
   # Enable teamviewer services
-  #services.teamviewer.enable = true;
+  services.teamviewer.enable = true;
 
   fonts = {
     enableFontDir = true;
