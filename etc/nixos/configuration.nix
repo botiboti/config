@@ -74,6 +74,7 @@
 
   services.xserver = {
     enable = true;
+    videoDrivers = [ "modesetting" "nvidia" ];
     layout = "us";
     windowManager.i3.enable = true;
     displayManager.gdm.enable = true;
@@ -127,6 +128,18 @@
     uid = 1000;
     extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "video" "sway"];
   };
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;  
+  hardware.nvidia.optimus_prime = {
+    enable = true;
+
+    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+    nvidiaBusId = "PCI:1:0:0";
+
+    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+    intelBusId = "PCI:0:2:0";
+  };
+
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
