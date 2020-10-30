@@ -16,7 +16,7 @@
         arduino xclip vscode elmPackages.elm-format
         xdotool maim unzip kodelife nodejs pavucontrol
         blender rustup zoom-us discord steam librecad
-        simplescreenrecorder
+        simplescreenrecorder keepass
       ];
     };
   };
