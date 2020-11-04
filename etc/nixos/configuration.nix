@@ -77,7 +77,7 @@
     videoDrivers = [ "modesetting" "nvidia" ];
     layout = "us";
     windowManager.i3.enable = true;
-    displayManager.gdm.enable = true;
+    displayManager.lightdm.enable = true;
     synaptics = {
       enable = true;
       vertTwoFingerScroll = true;
@@ -126,11 +126,12 @@
   users.users.botiboti = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "video" "sway"];
+    extraGroups = [ "wheel" "adbusers" "networkmanager" "dialout" "audio" "video" "sway"];
   };
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;  
   
+  # adb for android and wear os
+  programs.adb.enable = true;
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
