@@ -20,7 +20,7 @@ order += "load"
 order += "tztime utc"
 #order += "tztime hu"
 order += "tztime ro"
-order += "tztime pt"
+#order += "tztime pt"
 #order += "time"
 
 wireless _first_ {
