@@ -153,7 +153,6 @@
     adb.enable = true;
     light.enable = true;
     slock.enable = true;
-    sway.enable = true;
   };
  
   # DO NOT CHANGE

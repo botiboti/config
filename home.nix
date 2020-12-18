@@ -48,7 +48,7 @@
   nixpkgs.config.allowUnfree = true;
 
   programs = {
-    
+
     bash = {
       enable = true;
       bashrcExtra = lib.mkBefore ''source ~/config/.custom_commands.sh'';
