@@ -7,9 +7,9 @@
     gcc
     w3m
     tmux
-    atom
     chromium
     arandr
+    docker
     mpv
     libreoffice
     calibre
@@ -26,7 +26,6 @@
     librecad
     simplescreenrecorder
     keepass
-    teams
     pciutils
     vim
     tmate

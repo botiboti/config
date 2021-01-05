@@ -1,7 +1,9 @@
 { config, pkgs, lib, ... }:
 {
 
-  imports = [ <home-manager/nixos> ];
+  imports = [ <home-manager/nixos> 
+              ./container.nix
+            ];
   home-manager.users.botiboti = import ./home.nix;
 
   boot = {  
@@ -35,10 +37,18 @@
   };
 
   networking = {
+    firewall.allowedTCPPorts = [ 4713 6000 ];
     hostName = "toty";
-    networkmanager.enable = true;
-    # firewall.allowedTCPPorts = [ 2234 ];
-    wireguard.interfaces.wg0 = {
+    nat = {
+      enable = true;
+      internalInterfaces = ["ve-*"];
+      externalInterface = "wlp8s0";
+    };
+    networkmanager = {
+      enable = true;
+      unmanaged = [ "interface-name:ve-*" ];
+    };
+  wireguard.interfaces.wg0 = {
       ips = [ "10.10.10.42/16" ];
       privateKeyFile = "/root/secret/wireguard";
       peers = [
@@ -68,13 +78,26 @@
     # };
  
     enableRedistributableFirmware = true;
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      /*
+        config = General {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      */
+    };
   
     pulseaudio = {
       enable = true;
+      systemWide = true;
       support32Bit = true;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      package = pkgs.pulseaudioFull;
+      tcp = { enable = true; anonymousClients = { allowedIpRanges = ["127.0.0.1" "192.168.7.0/24"]; }; };
     };
   };
+  
+  virtualisation.docker.enable = true;
   
   sound.enable = true;
   
@@ -141,7 +164,7 @@
     botiboti = {
       isNormalUser = true;
       uid = 1000;
-      extraGroups = [ "wheel" "adbusers" "networkmanager" "dialout" "audio" "video" "sway"];
+      extraGroups = [ "wheel" "adbusers" "networkmanager" "dialout" "audio" "video" "sway" "docker" ];
     };
     ssdd = {
       isNormalUser = true;
@@ -154,7 +177,6 @@
     light.enable = true;
     slock.enable = true;
   };
- 
   # DO NOT CHANGE
   system.stateVersion = "18.09";
 }
