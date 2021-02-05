@@ -1,5 +1,6 @@
 { pkgs, lib, ... }: {
   home.packages = with pkgs; [
+    neovim
     transmission-gtk
     networkmanager_dmenu
     tree
@@ -27,7 +28,6 @@
     simplescreenrecorder
     keepass
     pciutils
-    vim
     tmate
     firefox
     htop
@@ -42,6 +42,21 @@
     zoom-us
     slack
     postgresql
+    blueberry
+    yarn
+    xorg.xinit
+    wine
+    usbutils
+    unzip
+    steam
+    teamviewer
+    terraform
+    skypeforlinux
+    nodejs
+    lsscsi
+    mlton
+    service-wrapper
+    socat
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -50,8 +65,10 @@
 
     bash = {
       enable = true;
-      bashrcExtra = lib.mkBefore ''source ~/config/.custom_commands.sh'';
+      bashrcExtra = lib.mkBefore "source ~/config/.custom_commands.sh";
     };
+
+    neovim = { enable = true; };
 
     git = {
       enable = true;
