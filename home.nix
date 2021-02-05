@@ -1,6 +1,5 @@
 { pkgs, lib, ... }: {
   home.packages = with pkgs; [
-    neovim
     transmission-gtk
     networkmanager_dmenu
     tree
@@ -59,8 +58,18 @@
     socat
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
+  nixpkgs = {
+    config = import ./config.nix;
+    overlays = [
+      (self: super: {
+        neovim = super.neovim.override {
+          viAlias = true;
+          vimAlias = true;
+        };
+      })
+    ];
+  };
+ 
   programs = {
 
     bash = {
@@ -68,7 +77,17 @@
       bashrcExtra = lib.mkBefore "source ~/config/.custom_commands.sh";
     };
 
-    neovim = { enable = true; };
+    neovim = {
+      enable = true;
+      configure = {
+        packages.myVimPackage = with pkgs.vimPlugins; {
+          # loaded on launch
+	  start = [ ];
+	  # manually loadable by calling `:packadd $plugin-name`
+	  opt = [ ];
+        };
+      };
+    };
 
     git = {
       enable = true;

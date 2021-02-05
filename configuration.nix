@@ -30,21 +30,9 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   nixpkgs = {
-    overlays = [
-      (self: super: {
-        neovim = super.neovim.override {
-          viAlias = true;
-          vimAlias = true;
-        };
-      })
-    ];
-
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-    };
+    config = import ./config.nix;
   };
-
+  
   networking = {
     firewall.allowedTCPPorts = [ 4713 6000 ];
     hostName = "toty";
