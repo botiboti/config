@@ -1,6 +1,6 @@
 { pkgs, lib, ... }: {
 
-  imports = [ <home-manager/nixos> ./container.nix ];
+  imports = [ <home-manager/nixos> ];
   home-manager.users.botiboti = import ./home.nix;
 
   boot = {
@@ -29,10 +29,10 @@
   nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  nixpkgs = {
-    config = import ./config.nix;
-  };
-  
+  nixpkgs = { 
+    config = import ./config.nix; 
+ };
+
   networking = {
     firewall.allowedTCPPorts = [ 4713 6000 ];
     hostName = "toty";
@@ -104,20 +104,25 @@
     enable = true;
     videoDrivers = [ "intel" "nv" ];
     layout = "us";
-    windowManager.i3.enable = true;
-    displayManager.lightdm.enable = true;
+    windowManager = {
+      i3.enable = true;
+    };
+    displayManager = {
+      lightdm = { enable = true; };
+    };
     synaptics = {
       enable = true;
       vertTwoFingerScroll = true;
       horizTwoFingerScroll = true;
-      palmDetect = true;
       additionalOptions = ''
-        Option "VertScrollDelta" "-70"
-        Option "HorizScrollDelta" "-70"
-      '';
+                Option "VertScrollDelta" "-70"
+                Option "HorizScrollDelta" "-70"
+        	Option "PalmDetection" "True"
+                '';
       accelFactor = "0.09";
     };
   };
+
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
@@ -187,13 +192,16 @@
     };
   };
 
-  environment = { systemPackages = with pkgs; [ vim ]; };
+  environment = { 
+    variables.EDITOR = "nvim";
+  };
 
   programs = {
     adb.enable = true;
     light.enable = true;
     slock.enable = true;
   };
+
   # DO NOT CHANGE
   system.stateVersion = "18.09";
 }

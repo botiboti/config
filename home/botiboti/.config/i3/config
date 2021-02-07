@@ -74,6 +74,10 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+# change profile for Jabra headset
+bindsym --release $mod+b exec pactl set-card-profile bluez_card.70_BF_92_1A_CD_BA headset_head_unit 
+bindsym --release $mod+Shift+b exec pactl set-card-profile bluez_card.70_BF_92_1A_CD_BA a2dp_sink_aac
+
 # move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
