@@ -1,5 +1,6 @@
 { pkgs, lib, ... }: {
   home.packages = with pkgs; [
+    fzf
     nixfmt
     transmission-gtk
     networkmanager_dmenu
@@ -52,7 +53,6 @@
     teamviewer
     terraform
     skypeforlinux
-    nodejs
     lsscsi
     mlton
     service-wrapper

@@ -117,7 +117,7 @@
       additionalOptions = ''
                 Option "VertScrollDelta" "-70"
                 Option "HorizScrollDelta" "-70"
-        	Option "PalmDetection" "True"
+                Option "PalmDetection" "True"
                 '';
       accelFactor = "0.09";
     };
@@ -192,8 +192,9 @@
     };
   };
 
-  environment = { 
-    variables.EDITOR = "nvim";
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
 
   programs = {
