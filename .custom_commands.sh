@@ -15,3 +15,11 @@ fi
 function edit() {
   nvim $(fzf)
 }
+
+function screen_bal() {
+    /home/botiboti/.screenlayout/bal.sh 
+}
+
+function screen_alap() {
+    /home/botiboti/.screenlayout/sima.sh 
+}

@@ -24,6 +24,7 @@
         
         autocmd FocusGained * silent! checktime
 
+        set ignorecase
         set noswapfile
         set autoread
         set modifiable

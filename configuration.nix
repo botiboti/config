@@ -1,6 +1,9 @@
 { pkgs, lib, ... }: {
 
-  imports = [ <home-manager/nixos> ];
+  imports = [ 
+    <home-manager/nixos>
+    # /home/botiboti/projects/circulo-env/wp.nix
+  ];
   home-manager.users.botiboti = import ./home.nix;
 
   boot = {
@@ -11,6 +14,7 @@
     initrd.availableKernelModules =
       [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
     kernelModules = [ "kvm-intel" ];
+    kernelPackages = pkgs.linuxPackages_latest; 
   };
 
   fileSystems = {
@@ -34,7 +38,10 @@
  };
 
   networking = {
-    firewall.allowedTCPPorts = [ 4713 6000 ];
+    firewall = {
+      enable = true; 
+      allowedTCPPorts = [ 4713 6000 ];
+    };
     hostName = "toty";
     nat = {
       enable = true;
@@ -45,19 +52,19 @@
       enable = true;
       unmanaged = [ "interface-name:ve-*" ];
     };
-    wireguard.interfaces.wg0 = {
-      ips = [ "10.10.10.42/16" ];
-      privateKeyFile = "/root/secret/wireguard";
-      peers = [{
-        publicKey = "TpzpokNmwEtlccYx0U+yKy5+xUeFp9RisO7FnnwZJlA=";
-        allowedIPs = [ "10.10.0.0/16" ];
-        endpoint = "calculon.eket.su:51820";
-        persistentKeepalive = 25;
-      }];
-    };
+#    wireguard.interfaces.wg0 = {
+#      ips = [ "10.10.10.42/16" ];
+#      privateKeyFile = "/root/secret/wireguard";
+#      peers = [{
+#        publicKey = "TpzpokNmwEtlccYx0U+yKy5+xUeFp9RisO7FnnwZJlA=";
+#        allowedIPs = [ "10.10.0.0/16" ];
+#        endpoint = "calculon.eket.su:51820";
+#        persistentKeepalive = 25;
+#      }];
+#    };
   };
 
-  time.timeZone = "Europe/Lisbon";
+  time.timeZone = "Europe/Bucharest";
 
   hardware = {
     opengl = {
@@ -81,19 +88,13 @@
       */
     };
 
-    pulseaudio = {
-      enable = true;
-      systemWide = true;
-      support32Bit = true;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
-      package = pkgs.pulseaudioFull;
-      tcp = {
-        enable = true;
-        anonymousClients = {
-          allowedIpRanges = [ "127.0.0.1" "192.168.7.0/24" ];
-        };
-      };
-    };
+#    pulseaudio = {
+#      enable = true;
+#      systemWide = true;
+#      support32Bit = true;
+#      extraModules = [ pkgs.pulseaudio-modules-bt ];
+#      package = pkgs.pulseaudioFull;
+#    };
   };
 
   virtualisation.docker.enable = true;
@@ -106,9 +107,14 @@
     layout = "us";
     windowManager = {
       i3.enable = true;
+      i3.extraPackages = with pkgs;
+      [ i3lock
+        i3status
+        dmenu
+      ];
     };
     displayManager = {
-      lightdm = { enable = true; };
+      lightdm.enable = true;
     };
     synaptics = {
       enable = true;
@@ -130,11 +136,6 @@
 
   services.blueman.enable = true;
   services.teamviewer.enable = true;
-
-  services.tor = {
-    enable = true;
-    client.enable = true;
-  };
 
   fonts = {
     enableFontDir = true;
@@ -200,7 +201,7 @@
   programs = {
     adb.enable = true;
     light.enable = true;
-    slock.enable = true;
+#    i3lock.enable = true;
   };
 
   # DO NOT CHANGE

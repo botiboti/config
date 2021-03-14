@@ -16,7 +16,7 @@ exec --no-startup-id setxkbmap -model pc105 -layout us,hu -option grp:switch
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
-bindsym --release XF86Sleep exec slock
+bindsym --release XF86Sleep exec i3lock 
 
 # i3 config file (v4)
 #
