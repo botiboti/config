@@ -23,3 +23,15 @@ function screen_bal() {
 function screen_alap() {
     /home/botiboti/.screenlayout/sima.sh 
 }
+
+function screen_jobb() {
+    /home/botiboti/.screenlayout/jobb.sh 
+}
+
+function screen_fel() {
+    /home/botiboti/.screenlayout/fel.sh 
+}
+
+function screen_vertjobb() {
+    /home/botiboti/.screenlayout/jobbvert.sh
+}

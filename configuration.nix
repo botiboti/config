@@ -2,7 +2,7 @@
 
   imports = [ 
     <home-manager/nixos>
-    # /home/botiboti/projects/circulo-env/wp.nix
+#    /home/botiboti/projects/circulo-env/wp.nix
   ];
   home-manager.users.botiboti = import ./home.nix;
 
@@ -31,7 +31,7 @@
   swapDevices = [ ];
 
   nix.maxJobs = lib.mkDefault 8;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
   nixpkgs = { 
     config = import ./config.nix; 
@@ -88,13 +88,12 @@
       */
     };
 
-#    pulseaudio = {
-#      enable = true;
-#      systemWide = true;
-#      support32Bit = true;
-#      extraModules = [ pkgs.pulseaudio-modules-bt ];
-#      package = pkgs.pulseaudioFull;
-#    };
+    pulseaudio = {
+      enable = true;
+      support32Bit = true;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      package = pkgs.pulseaudioFull;
+    };
   };
 
   virtualisation.docker.enable = true;
@@ -103,7 +102,7 @@
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "intel" "nv" ];
+    videoDrivers = [ "intel" ];
     layout = "us";
     windowManager = {
       i3.enable = true;
@@ -114,7 +113,7 @@
       ];
     };
     displayManager = {
-      lightdm.enable = true;
+     sddm.enable = true;
     };
     synaptics = {
       enable = true;
@@ -181,7 +180,6 @@
         "dialout"
         "audio"
         "video"
-        "sway"
         "docker"
       ];
     };
