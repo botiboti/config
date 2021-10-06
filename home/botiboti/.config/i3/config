@@ -16,8 +16,6 @@ exec --no-startup-id setxkbmap -model pc105 -layout us,hu -option grp:switch
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
-bindsym --release XF86Sleep exec i3lock 
-
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -33,11 +31,7 @@ font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
+# font 3t, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -46,7 +40,7 @@ floating_modifier $mod
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec "xterm -rv -ls -fn '-*-terminus-*-16-*' -bg Aquamarine3 -fg rgb:10/45/64"
 
-# snapshot and save it to the clipboard
+# screenshot and save it to the clipboard
 bindsym --release $mod+s exec --no-startup-id "maim -s | xclip -selection clipboard -t image/png"
 
 # screenshot active window and paste to the clipboard

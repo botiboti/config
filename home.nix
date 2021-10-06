@@ -9,9 +9,12 @@
     gcc
     w3m
     tmux
+    php80
+    php80Packages.composer
     chromium
     arandr
     docker
+    docker-compose
     mpv
     libreoffice
     calibre
@@ -60,7 +63,7 @@
   ];
 
   nixpkgs = {
-    config = import ./config.nix;
+    config.allowUnfree = true;
     overlays = [
       (self: super: {
         neovim = super.neovim.override {
