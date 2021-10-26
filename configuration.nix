@@ -151,7 +151,7 @@ in
       services.physlock = {
         enable = true;
         lockOn.suspend = true;
-        lockMessage = "Do not power off the machine!";
+        lockMessage = "Hello. Do not power me off please.";
       };
 
 #      services.tor = {

@@ -4,13 +4,12 @@
     nixfmt
     transmission-gtk
     networkmanager_dmenu
+    rofi
     tree
-    volumeicon
+    pnmixer
     gcc
     w3m
     tmux
-    php80
-    php80Packages.composer
     chromium
     arandr
     docker
@@ -23,7 +22,6 @@
     xclip
     elmPackages.elm-format
     xdotool
-    maim
     nodejs
     pavucontrol
     blender
@@ -32,10 +30,9 @@
     simplescreenrecorder
     keepass
     pciutils
-    tmate
     firefox
     htop
-    vscode
+    vscodium
     discord
     teams
     kodelife
@@ -46,7 +43,6 @@
     zoom-us
     slack
     postgresql
-    blueberry
     yarn
     xorg.xinit
     wine
@@ -57,9 +53,12 @@
     terraform
     skypeforlinux
     lsscsi
-    mlton
     service-wrapper
     socat
+    tdesktop
+    dconf
+    lxappearance
+
   ];
 
   nixpkgs = {
@@ -76,6 +75,15 @@
 
   imports = [ ./vim.nix ];
  
+  gtk = {
+        enable = true;
+        font.name = "source-code-pro";
+        theme = {
+          name = "Juno";
+          package = pkgs.juno-theme;
+        };
+      };
+
   programs = {
 
     bash = {
