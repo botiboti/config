@@ -38,7 +38,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec "xterm -rv -ls -fn '-*-terminus-*-16-*' -bg Aquamarine3 -fg rgb:10/45/64"
+bindsym $mod+Return exec "xterm"
 
 # screenshot and save it to the clipboard
 bindsym --release $mod+s exec --no-startup-id "maim -s | xclip -selection clipboard -t image/png"

@@ -7,6 +7,7 @@
     rofi
     tree
     pnmixer
+    maim
     gcc
     w3m
     tmux
@@ -32,6 +33,7 @@
     pciutils
     firefox
     htop
+    opensc
     vscodium
     discord
     teams

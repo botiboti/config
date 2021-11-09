@@ -154,6 +154,11 @@ in
         lockMessage = "Hello. Do not power me off please.";
       };
 
+      services.pcscd = {
+        enable = true;
+        plugins = [ pkgs.acsccid ];
+      };
+
 #      services.tor = {
 #        enable=true;
 #        client.enable=true;
@@ -230,7 +235,7 @@ in
       programs = {
         adb.enable = true;
         light.enable = true;
-#    i3lock.enable = true;
+        # bash.promptInit = ''PS1="[\e[1;33m\u\e[m@\e[1;35m\H\e[m:\w]\e[1;36mΔ \e[m"'';
   };
 
   # DO NOT CHANGE
