@@ -37,6 +37,7 @@
         set filetype=i3config
         set softtabstop=4
         set shiftwidth=4
+        set background=dark
 
         :au CursorHold * :checktime
         :au FocusLost * :Autoformat * :wa

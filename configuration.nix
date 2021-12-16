@@ -111,7 +111,10 @@ in
         enableNvidia = false;
       };
 
-      sound.enable = true;
+      sound = {
+        enable = true;
+        mediaKeys.enable = true;
+      };
 
       services.xserver = {
         enable = true;
@@ -128,9 +131,13 @@ in
         displayManager = {
           sddm.enable = true;
         };
+        deviceSection = ''
+          Option "TearFree" "true"
+        '';
         libinput = {
           enable = true;
         };
+        wacom.enable = true;
       };
 
       services.openssh = {
@@ -145,8 +152,6 @@ in
       services.picom.vSync = true;
 
       services.xmr-stak.cudaSupport = true;
-
-      services.xserver.wacom.enable = true;
 
       services.physlock = {
         enable = true;
@@ -169,74 +174,74 @@ in
 #        enableTor = true;
 #      };
 
-      fonts = {
-        enableDefaultFonts = true;
-        fontconfig = {
-          enable = true;
-          cache32Bit = true;
-          defaultFonts = {
-            monospace = [ "Fira Code Light" "DejaVu Sans Mono" ];
-            sansSerif = [ "Fira Sans" "DejaVu Sans" ];
-            serif = [ "DejaVu Serif" ];
-          };
-        };
-        fonts = with pkgs; [
-          carlito
-          corefonts
-          fira
-          fira-code
-          fira-code-symbols
-          fira-mono
-          hasklig
-          mononoki
-          noto-fonts
-          noto-fonts-cjk
-          noto-fonts-emoji
-          source-code-pro
-          source-sans-pro
-          source-serif-pro
-          terminus_font
-          terminus_font_ttf
-          ubuntu_font_family
-        ];
-      };
-
-      users.groups.nix-users.members = [ "botiboti" ];
-
-      users.users = {
-        botiboti = {
-          isNormalUser = true;
-          uid = 1000;
-          extraGroups = [
-            "wheel"
-            "adbusers"
-            "networkmanager"
-            "dialout"
-            "audio"
-            "video"
-            "docker"
-          ];
-        };
-        ssdd = {
-          isNormalUser = true;
-          openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZOC3FgP/8TUK62obAW/uDENhdXkLGAjickSF53zncg ssdd@eki"
-          ];
-        };
-      };
-
-      environment = {
-        variables = {
-          EDITOR = "nvim";
-          VISUAL = "nvim";
-        };
-      };
-
-      programs = {
-        adb.enable = true;
-        light.enable = true;
-        # bash.promptInit = ''PS1="[\e[1;33m\u\e[m@\e[1;35m\H\e[m:\w]\e[1;36mΔ \e[m"'';
+fonts = {
+  enableDefaultFonts = true;
+  fontconfig = {
+    enable = true;
+    cache32Bit = true;
+    defaultFonts = {
+      monospace = [ "Fira Code Light" "DejaVu Sans Mono" ];
+      sansSerif = [ "Fira Sans" "DejaVu Sans" ];
+      serif = [ "DejaVu Serif" ];
+    };
   };
+  fonts = with pkgs; [
+    carlito
+    corefonts
+    fira
+    fira-code
+    fira-code-symbols
+    fira-mono
+    hasklig
+    mononoki
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    source-code-pro
+    source-sans-pro
+    source-serif-pro
+    terminus_font
+    terminus_font_ttf
+    ubuntu_font_family
+  ];
+};
+
+users.groups.nix-users.members = [ "botiboti" ];
+
+users.users = {
+  botiboti = {
+    isNormalUser = true;
+    uid = 1000;
+    extraGroups = [
+      "wheel"
+      "adbusers"
+      "networkmanager"
+      "dialout"
+      "audio"
+      "video"
+      "docker"
+    ];
+  };
+  ssdd = {
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZOC3FgP/8TUK62obAW/uDENhdXkLGAjickSF53zncg ssdd@eki"
+    ];
+  };
+};
+
+environment = {
+  variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+};
+
+programs = {
+  adb.enable = true;
+  light.enable = true;
+        # bash.promptInit = ''PS1="[\e[1;33m\u\e[m@\e[1;35m\H\e[m:\w]\e[1;36mΔ \e[m"'';
+      };
 
   # DO NOT CHANGE
   system.stateVersion = "18.09";

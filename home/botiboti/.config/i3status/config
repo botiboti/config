@@ -84,7 +84,7 @@ tztime hu {
 
 tztime ro {
   timezone = "Europe/Bucharest"
-  format = " %a %Y-%m-%d %H:%M:%S RO "
+  format = " %H:%M RO "
 }
 
 tztime pt {

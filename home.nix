@@ -6,7 +6,7 @@
     networkmanager_dmenu
     rofi
     tree
-    pnmixer
+    volumeicon
     maim
     gcc
     w3m
@@ -60,7 +60,9 @@
     tdesktop
     dconf
     lxappearance
-
+    gnome3.adwaita-icon-theme
+    retroarch
+    lutris
   ];
 
   nixpkgs = {
