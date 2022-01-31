@@ -63,6 +63,7 @@
     gnome3.adwaita-icon-theme
     retroarch
     lutris
+    monero-gui
   ];
 
   nixpkgs = {

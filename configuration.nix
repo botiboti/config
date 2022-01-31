@@ -106,6 +106,8 @@ in
         # };
       };
 
+      virtualisation.virtualbox.host.enable = true;
+
       virtualisation.docker = {
         enable = true;
         enableNvidia = false;
@@ -207,6 +209,7 @@ fonts = {
 };
 
 users.groups.nix-users.members = [ "botiboti" ];
+users.extraGroups.vboxusers.members = [ "botiboti" ];
 
 users.users = {
   botiboti = {
