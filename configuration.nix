@@ -97,6 +97,11 @@ in
           support32Bit = true;
           extraModules = [ pkgs.pulseaudio-modules-bt ];
           package = pkgs.pulseaudioFull;
+          extraConfig = "load-module module-combine channels=6 channel_map=front-left,front-right,lfe";
+          daemon.config = { 
+            remixing-produce-lfe = "yes";
+            remixing-consume-lfe = "yes";
+          };
         };
 
         # nvidia.prime = {
@@ -161,20 +166,25 @@ in
         lockMessage = "Hello. Do not power me off please.";
       };
 
+      services.printing = {
+        enable = true;
+        drivers = [ pkgs.brlaser ];
+      };
+
       services.pcscd = {
         enable = true;
         plugins = [ pkgs.acsccid ];
       };
 
-#      services.tor = {
-#        enable=true;
-#        client.enable=true;
-#      };
+      # services.tor = {
+      #   enable=true;
+      #   client.enable=true;
+      # };     
 
-#      services.privoxy = {
-#        enable = true;
-#        enableTor = true;
-#      };
+      # services.privoxy = {
+      #   enable = true;
+      #   enableTor = true;
+      # };
 
 fonts = {
   enableDefaultFonts = true;
@@ -243,8 +253,8 @@ environment = {
 programs = {
   adb.enable = true;
   light.enable = true;
-        # bash.promptInit = ''PS1="[\e[1;33m\u\e[m@\e[1;35m\H\e[m:\w]\e[1;36mΔ \e[m"'';
-      };
+  # bash.promptInit = ''PS1="[\e[1;33m\u\e[m@\e[1;35m\H\e[m:\w]\e[1;36mΔ \e[m"'';
+};
 
   # DO NOT CHANGE
   system.stateVersion = "18.09";

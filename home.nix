@@ -5,11 +5,9 @@
     transmission-gtk
     networkmanager_dmenu
     rofi
-    tree
     volumeicon
     maim
     gcc
-    w3m
     tmux
     chromium
     arandr

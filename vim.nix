@@ -4,7 +4,6 @@
     vimAlias = true;
     viAlias = true;
     withNodeJs = true;
-    withPython = false;
     plugins = with pkgs.vimPlugins; [
       incsearch-vim
       yankring
