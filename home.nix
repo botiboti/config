@@ -44,12 +44,12 @@
     slack
     postgresql
     yarn
+    root
     xorg.xinit
     wine
     usbutils
     unzip
     steam
-    teamviewer
     terraform
     skypeforlinux
     lsscsi
@@ -59,8 +59,6 @@
     dconf
     lxappearance
     gnome3.adwaita-icon-theme
-    retroarch
-    lutris
     monero-gui
   ];
 

@@ -37,6 +37,10 @@ ethernet _first_ {
 
 battery 0 {
   format = " %status %percentage %remaining "
+  status_chr = "⚡ CHR"
+  status_bat = "🔋 BAT"
+  status_full = "☻ FULL"
+  status_unk = "? UNK"
 }
 
 run_watch DHCP {
