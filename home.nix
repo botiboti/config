@@ -21,9 +21,8 @@
     xclip
     elmPackages.elm-format
     xdotool
-    nodejs
+    nodejs-18_x
     pavucontrol
-    blender
     rustup
     librecad
     simplescreenrecorder
@@ -35,7 +34,6 @@
     vscodium
     discord
     teams
-    kodelife
     binutils
     glxinfo
     linuxHeaders
@@ -46,10 +44,8 @@
     yarn
     root
     xorg.xinit
-    wine
     usbutils
     unzip
-    steam
     terraform
     skypeforlinux
     lsscsi

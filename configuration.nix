@@ -29,42 +29,42 @@ in
         kernelPackages = pkgs.linuxPackages_latest;
         kernelParams = [ "udev.log_priority=3" ];
         # extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-    };
-
-    fileSystems = {
-      "/" = {
-      device = "/dev/disk/by-uuid/4937f733-3686-4e34-9c21-00cde4efdae1";
-      fsType = "ext4";
       };
-      "/boot" = {
-      device = "/dev/disk/by-uuid/D081-5EDD";
-      fsType = "vfat";
-      };
-    };
 
-    swapDevices = [ ];
-
-    nix.maxJobs = lib.mkDefault 8;
-    powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-
-    nixpkgs.config = {
-      allowUnfree = true;
-    };
-
-    networking = {
-      firewall = {
-        enable = true;
+      fileSystems = {
+        "/" = {
+          device = "/dev/disk/by-uuid/4937f733-3686-4e34-9c21-00cde4efdae1";
+          fsType = "ext4";
+        };
+        "/boot" = {
+          device = "/dev/disk/by-uuid/D081-5EDD";
+          fsType = "vfat";
+        };
       };
-      hostName = "toty";
-      nat = {
-        enable = true;
-        internalInterfaces = [ "ve-*" ];
-        externalInterface = "wlp8s0";
+
+      swapDevices = [ ];
+
+      nix.maxJobs = lib.mkDefault 8;
+      powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+
+      nixpkgs.config = {
+        allowUnfree = true;
       };
-      networkmanager = {
-        enable = true;
-        unmanaged = [ "interface-name:ve-*" ];
-      };
+
+      networking = {
+        firewall = {
+          enable = true;
+        };
+        hostName = "toty";
+        nat = {
+          enable = true;
+          internalInterfaces = [ "ve-*" ];
+          externalInterface = "wlp8s0";
+        };
+        networkmanager = {
+          enable = true;
+          unmanaged = [ "interface-name:ve-*" ];
+        };
       # wireguard.interfaces.wg0 = {
       #   ips = [ "10.10.10.42/24" ];
       #   privateKeyFile = "/root/secret/wireguard";
@@ -98,13 +98,13 @@ in
         enable = true;
         support32Bit = true;
       #  extraModules = [ pkgs.pulseaudio-modules-bt ];
-        package = pkgs.pulseaudioFull;
+      package = pkgs.pulseaudioFull;
       #  extraConfig = "load-module module-combine channels=6 channel_map=front-left,front-right,lfe";
-      #  daemon.config = { 
+      #  daemon.config = {
       #    remixing-produce-lfe = "yes";
       #    remixing-consume-lfe = "yes";
       #  };
-      };
+    };
 
       # nvidia.prime = {
       #  offload.enable = false;
@@ -174,8 +174,9 @@ in
     services.physlock = {
       enable = true;
       lockOn.suspend = true;
-      lockMessage = "Hello. Do not power me off please.";
     };
+
+    systemd.services.physlock.serviceConfig.ExecStart = lib.mkForce "${pkgs.physlock}/bin/physlock -dsm -p \"Hello. Do not power me off please.\"";
 
     services.printing = {
       enable = true;
@@ -190,7 +191,7 @@ in
     # services.tor = {
     #   enable=true;
     #   client.enable=true;
-    # };     
+    # };
 
     # services.privoxy = {
     #   enable = true;
@@ -226,8 +227,8 @@ in
         terminus_font
         terminus_font_ttf
         ubuntu_font_family
-        ];
-      };
+      ];
+    };
 
     users.groups.nix-users.members = [ "botiboti" ];
     users.extraGroups.vboxusers.members = [ "botiboti" ];
@@ -264,7 +265,7 @@ in
     programs = {
       adb.enable = true;
       light.enable = true;
-      # bash.promptInit = ''PS1="[\e[1;33m\u\e[m@\e[1;35m\H\e[m:\w]\e[1;36mΔ \e[m"'';
+      bash.promptInit = ''PS1="\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]Ξ \[\033[0m\]"'';
     };
 
       # DO NOT CHANGE
