@@ -50,11 +50,11 @@ bindsym --release $mod+Shift+s exec --no-startup-id "maim -i $(xdotool getactive
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run -theme Monokai
+bindsym $mod+d exec exec rofi -show drun -theme Monokai
 # start rofi window mode
 bindsym $mod+Shift+d exec rofi -show window -theme Monokai
 # start rofi in drun mode
-bindsym $mod+Ctrl+Shift+d exec rofi -show drun -theme Monokai
+bindsym $mod+Ctrl+Shift+d exec rofi -show run -theme Monokai
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
