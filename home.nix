@@ -45,6 +45,7 @@
     root
     xorg.xinit
     usbutils
+    nixpkgs-fmt
     unzip
     terraform
     skypeforlinux
@@ -52,6 +53,7 @@
     service-wrapper
     socat
     tdesktop
+    texlive.combined.scheme-full
     dconf
     lxappearance
     gnome3.adwaita-icon-theme
@@ -71,15 +73,15 @@
   };
 
   imports = [ ./vim.nix ];
- 
+
   gtk = {
-        enable = true;
-        font.name = "source-code-pro";
-        theme = {
-          name = "Juno";
-          package = pkgs.juno-theme;
-        };
-      };
+    enable = true;
+    font.name = "source-code-pro";
+    theme = {
+      name = "Juno";
+      package = pkgs.juno-theme;
+    };
+  };
 
   programs = {
 
