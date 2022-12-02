@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, home-manager, ... }:
 let
   # unstable = import <unstable> {
   # config.allowUnfree = true;
@@ -14,7 +14,7 @@ let
 in
 {
   imports = [
-    <home-manager/nixos>
+    home-manager.nixosModule
   ];
   home-manager.users.botiboti = import ./home.nix;
 
@@ -45,7 +45,6 @@ in
   swapDevices = [ ];
 
   nix = {
-    maxJobs = lib.mkDefault 8;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 

@@ -96,4 +96,6 @@
       userName = "Botond Ferenczi";
     };
   };
+
+  home.stateVersion = "22.05";
 }
