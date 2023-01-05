@@ -29,6 +29,7 @@
     keepass
     pciutils
     firefox
+    spotify
     htop
     opensc
     vscodium

@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs;
-    home-manager.url = github:nix-community/home-manager;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-22.11;
+    home-manager.url = github:nix-community/home-manager/release-22.11;
   };
 
   outputs = { self, nixpkgs, ... }@attrs: {

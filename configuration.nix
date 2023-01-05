@@ -1,16 +1,12 @@
 { pkgs, lib, config, home-manager, ... }:
 let
-  # unstable = import <unstable> {
-  # config.allowUnfree = true;
-  # };
-
-  # nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-  #     export __NV_PRIME_RENDER_OFFLOAD=1
-  #     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-  #     export __GLX_VENDOR_LIBRARY_NAME=nvidia
-  #     export __VK_LAYER_NV_optimus=NVIDIA_only
-  #     exec -a "$0" "$@"
-  # '';
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
 in
 {
   imports = [
@@ -48,7 +44,7 @@ in
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -100,20 +96,17 @@ in
     pulseaudio = {
       enable = true;
       support32Bit = true;
-      #  extraModules = [ pkgs.pulseaudio-modules-bt ];
       package = pkgs.pulseaudioFull;
-      #  extraConfig = "load-module module-combine channels=6 channel_map=front-left,front-right,lfe";
-      #  daemon.config = {
-      #    remixing-produce-lfe = "yes";
-      #    remixing-consume-lfe = "yes";
-      #  };
     };
 
-    # nvidia.prime = {
-    #  offload.enable = false;
-    #  nvidiaBusId = "PCI:1:0:0";
-    #  intelBusId = "PCI:0:2:0";
-    # };
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      prime = {
+        offload.enable = false;
+        nvidiaBusId = "PCI:1:0:0";
+        intelBusId = "PCI:0:2:0";
+      };
+    };
   };
 
   virtualisation.virtualbox.host.enable = true;
@@ -130,7 +123,7 @@ in
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "intel" ];
+    videoDrivers = [ "intel" "nvidia" ];
     layout = "us";
     windowManager = {
       i3.enable = true;
@@ -263,6 +256,7 @@ in
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
+    systemPackages = [ nvidia-offload ];
   };
 
   programs = {
