@@ -1,4 +1,4 @@
-{ pkgs, lib, config, home-manager, ... }:
+{ pkgs, lib, config, ... }:
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -9,9 +9,6 @@ let
   '';
 in
 {
-  imports = [
-    home-manager.nixosModule
-  ];
   home-manager.users.botiboti = import ./home.nix;
 
   boot = {
@@ -123,7 +120,7 @@ in
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "intel" "nvidia" ];
+    videoDrivers = [ "intel" ];
     layout = "us";
     windowManager = {
       i3.enable = true;
@@ -256,7 +253,7 @@ in
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
-    systemPackages = [ nvidia-offload ];
+    systemPackages = [ nvidia-offload pkgs.micro pkgs.bat ];
   };
 
   programs = {
@@ -265,6 +262,12 @@ in
     bash.promptInit = ''PS1="\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]Ξ \[\033[0m\]"'';
   };
 
+  system.activationScripts.diff = ''
+	if [ -e /run/current-system ]; then
+		${pkgs.nvd}/bin/nvd --nix-bin-dir ${pkgs.nix}/bin diff /run/current-system/ "$systemConfig"
+	fi
+  '';
+  
   # DO NOT CHANGE
   system.stateVersion = "18.09";
 }

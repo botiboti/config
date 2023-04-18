@@ -21,7 +21,7 @@
     xclip
     elmPackages.elm-format
     xdotool
-    nodejs-18_x
+    nodejs-16_x
     pavucontrol
     rustup
     librecad
@@ -30,6 +30,8 @@
     pciutils
     firefox
     spotify
+    todo
+    jrnl
     htop
     opensc
     vscodium
