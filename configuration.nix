@@ -263,11 +263,11 @@ in
   };
 
   system.activationScripts.diff = ''
-	if [ -e /run/current-system ]; then
-		${pkgs.nvd}/bin/nvd --nix-bin-dir ${pkgs.nix}/bin diff /run/current-system/ "$systemConfig"
-	fi
+    	if [ -e /run/current-system ]; then
+    		${pkgs.nvd}/bin/nvd --nix-bin-dir ${pkgs.nix}/bin diff /run/current-system/ "$systemConfig"
+    	fi
   '';
-  
+
   # DO NOT CHANGE
   system.stateVersion = "18.09";
 }
