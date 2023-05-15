@@ -59,7 +59,8 @@
     texlive.combined.scheme-full
     dconf
     lxappearance
-    gnome3.adwaita-icon-theme
+    # gnome3.adwaita-icon-theme
+    steam
     monero-gui
   ];
 

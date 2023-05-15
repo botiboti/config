@@ -121,7 +121,9 @@ in
   services.xserver = {
     enable = true;
     videoDrivers = [ "intel" ];
-    layout = "us";
+    layout = "us, hu";
+    xkbModel = "pc104";
+    xkbOptions = "grp:switch";
     windowManager = {
       i3.enable = true;
       i3.extraPackages = with pkgs;
