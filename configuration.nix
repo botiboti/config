@@ -261,13 +261,13 @@ in
   programs = {
     adb.enable = true;
     light.enable = true;
-    bash.promptInit = ''PS1="\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]Ξ \[\033[0m\]"'';
+    # bash.promptInit = ''PS1="\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]Ξ \[\033[0m\]"'';
   };
 
   system.activationScripts.diff = ''
-    	if [ -e /run/current-system ]; then
-    		${pkgs.nvd}/bin/nvd --nix-bin-dir ${pkgs.nix}/bin diff /run/current-system/ "$systemConfig"
-    	fi
+    if [ -e /run/current-system ]; then
+            ${pkgs.nvd}/bin/nvd --nix-bin-dir ${pkgs.nix}/bin diff /run/current-system/ "$systemConfig"
+    fi
   '';
 
   # DO NOT CHANGE

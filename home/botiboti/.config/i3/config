@@ -12,7 +12,7 @@ exec_always --no-startup-id "xsetroot -solid '#0D3B66'"
 
 # exec "setxkbmap -layout us,hu"
 # exec "setxkbmap -option 'grp:switch'"
-exec --no-startup-id "setxkbmap -model pc104 -layout us,hu -option 'grp:switch'"
+exec --no-startup-id "setxkbmap -layout us,hu -option 'grp:switch'"
 
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5

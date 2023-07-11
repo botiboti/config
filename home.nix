@@ -23,7 +23,6 @@
     xdotool
     nodejs-16_x
     pavucontrol
-    rustup
     librecad
     simplescreenrecorder
     keepass
@@ -91,6 +90,10 @@
 
     bash = {
       enable = true;
+      initExtra = ''
+        source ~/.nix-profile/share/git/contrib/completion/git-prompt.sh
+        export PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]$(__git_ps1 "(%s) ")Ξ \[\033[0m\]'
+      '';
       bashrcExtra = lib.mkBefore "source ~/config/.custom_commands.sh";
     };
 
