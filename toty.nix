@@ -18,6 +18,8 @@ in
     };
   };
 
+  home-manager.users.botiboti = import ./home.nix;
+
   boot = {
     initrd.availableKernelModules =
       [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
@@ -49,4 +51,7 @@ in
       };
     };
   };
+
+  # DO NOT CHANGE
+  system.stateVersion = "18.09";
 }

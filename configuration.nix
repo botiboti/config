@@ -1,7 +1,5 @@
 { pkgs, lib, config, ... }:
 {
-  home-manager.users.botiboti = import ./home.nix;
-
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -11,7 +9,7 @@
 
   nix = { settings.experimental-features = [ "nix-command" "flakes" ]; };
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   nixpkgs.config = { allowUnfree = true; };
 
@@ -177,7 +175,4 @@
             ${pkgs.nvd}/bin/nvd --nix-bin-dir ${pkgs.nix}/bin diff /run/current-system/ "$systemConfig"
     fi
   '';
-
-  # DO NOT CHANGE
-  system.stateVersion = "18.09";
 }
