@@ -10,18 +10,19 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/cce2f748-542f-462b-a17f-6db260d7f132";
+    {
+      device = "/dev/disk/by-uuid/cce2f748-542f-462b-a17f-6db260d7f132";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/83FB-190D";
+    {
+      device = "/dev/disk/by-uuid/83FB-190D";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/ff388478-38e1-48c6-817e-8f26a4d9572e"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/ff388478-38e1-48c6-817e-8f26a4d9572e"; }];
 
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
@@ -35,20 +36,34 @@
   boot.initrd.luks.devices = {
     cryptroot = {
       device = "/dev/nvme0n1p2";
-      preLVM =true;
+      preLVM = true;
     };
   };
 
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  users.users.boti = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      firefox
-      tree
-      git
-    ];
+  users.groups.nix-users.members = [ "boti" ];
+  users.extraGroups.vboxusers.members = [ "boti" ];
+
+  users.users = {
+    boti = {
+      isNormalUser = true;
+      uid = 1000;
+      extraGroups = [
+        "wheel"
+        "adbusers"
+        "networkmanager"
+        "dialout"
+        "audio"
+        "video"
+        "docker"
+      ];
+      packages = with pkgs; [
+        firefox
+        tree
+        git
+      ];
+    };
   };
 
   # programs.gnupg.agent = {

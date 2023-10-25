@@ -131,31 +131,6 @@
     ];
   };
 
-  users.groups.nix-users.members = [ "botiboti" ];
-  users.extraGroups.vboxusers.members = [ "botiboti" ];
-
-  users.users = {
-    botiboti = {
-      isNormalUser = true;
-      uid = 1000;
-      extraGroups = [
-        "wheel"
-        "adbusers"
-        "networkmanager"
-        "dialout"
-        "audio"
-        "video"
-        "docker"
-      ];
-    };
-    ssdd = {
-      isNormalUser = true;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZOC3FgP/8TUK62obAW/uDENhdXkLGAjickSF53zncg ssdd@eki"
-      ];
-    };
-  };
-
   environment = {
     variables = {
       EDITOR = "nvim";
