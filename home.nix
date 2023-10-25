@@ -80,6 +80,8 @@
     };
   };
 
+  xresources.extraConfig = builtins.readFile ./xresources/.Xresources;
+
   programs = {
 
     bash = {
