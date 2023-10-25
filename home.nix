@@ -3,16 +3,13 @@
     fzf
     nixfmt
     transmission-gtk
+    soundux
     networkmanager_dmenu
     rofi
     volumeicon
     maim
-    gcc
     tmux
-    chromium
     arandr
-    docker
-    docker-compose
     mpv
     libreoffice
     calibre
@@ -21,7 +18,6 @@
     xclip
     elmPackages.elm-format
     xdotool
-    nodejs-16_x
     pavucontrol
     librecad
     simplescreenrecorder
@@ -35,7 +31,6 @@
     opensc
     vscodium
     discord
-    teams
     binutils
     glxinfo
     linuxHeaders
@@ -49,7 +44,6 @@
     usbutils
     nixpkgs-fmt
     unzip
-    terraform
     skypeforlinux
     lsscsi
     service-wrapper

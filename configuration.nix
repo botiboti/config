@@ -7,8 +7,7 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
   '';
-in
-{
+in {
   home-manager.users.botiboti = import ./home.nix;
 
   boot = {
@@ -37,20 +36,14 @@ in
 
   swapDevices = [ ];
 
-  nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
-  };
+  nix = { settings.experimental-features = [ "nix-command" "flakes" ]; };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  nixpkgs.config = { allowUnfree = true; };
 
   networking = {
-    firewall = {
-      enable = true;
-    };
+    firewall = { enable = true; };
     hostName = "toty";
     nat = {
       enable = true;
@@ -81,7 +74,12 @@ in
     opengl = {
       enable = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [ intel-media-driver vaapiIntel vaapiVdpau libvdpau-va-gl ];
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
     };
 
     enableRedistributableFirmware = true;
@@ -126,36 +124,26 @@ in
     xkbOptions = "grp:switch";
     windowManager = {
       i3.enable = true;
-      i3.extraPackages = with pkgs;
-        [
-          i3status
-          dmenu
-        ];
+      i3.extraPackages = with pkgs; [ i3status dmenu ];
     };
-    displayManager = {
-      sddm.enable = true;
-    };
+    displayManager = { sddm.enable = true; };
     deviceSection = ''
       Option "TearFree" "true"
     '';
     libinput = {
       enable = true;
       # disabling mouse acceleration
-      mouse = {
-        accelProfile = "flat";
-      };
+      mouse = { accelProfile = "flat"; };
 
       # disabling touchpad acceleration
-      touchpad = {
-        accelProfile = "flat";
-      };
+      touchpad = { accelProfile = "flat"; };
     };
     wacom.enable = true;
   };
 
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
+    settings.PasswordAuthentication = false;
   };
 
   services.blueman.enable = true;
@@ -171,7 +159,8 @@ in
     lockOn.suspend = true;
   };
 
-  systemd.services.physlock.serviceConfig.ExecStart = lib.mkForce "${pkgs.physlock}/bin/physlock -dsm -p \"Hello. Do not power me off please.\"";
+  systemd.services.physlock.serviceConfig.ExecStart = lib.mkForce ''
+    ${pkgs.physlock}/bin/physlock -dsm -p "Hello. Do not power me off please."'';
 
   services.printing = {
     enable = true;

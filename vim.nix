@@ -6,6 +6,7 @@
     withNodeJs = true;
     plugins = with pkgs.vimPlugins; [
       incsearch-vim
+      nvim-treesitter
       yankring
       vim-airline
       elm-vim
@@ -14,7 +15,7 @@
       neocomplete
       vim-autoformat
       vim-nix
-      oceanic-next
+      tokyonight-nvim
       nerdtree
       {
         plugin = vim-startify;
@@ -41,12 +42,13 @@
       set background=dark
 
       :au CursorHold * :checktime
-      :au FocusLost * :Autoformat * :wa
+      :au FocusLost * :Autoformat
+      :au FocusLost * :wa
 
       nmap <C-n> :NERDTreeToggle<CR>
       map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
-      colorscheme OceanicNext
+      colorscheme tokyonight-night
 
       filetype plugin on
       filetype indent on
