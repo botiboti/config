@@ -6,11 +6,19 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.toty = nixpkgs.lib.nixosSystem {
-      # Note that you cannot put arbitrary configuration here: the configuration must be placed in the files loaded via modules
       system = "x86_64-linux";
       modules = [
         inputs.home-manager.nixosModules.home-manager
         ./configuration.nix
+        ./toty.nix
+      ];
+    };
+    nixosConfigurations.tot = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        ./configuration.nix
+        ./tot.nix
       ];
     };
   };

@@ -1,13 +1,5 @@
 { pkgs, lib, config, ... }:
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
-in {
+{
   home-manager.users.botiboti = import ./home.nix;
 
   boot = {
@@ -15,26 +7,7 @@ in {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    initrd.availableKernelModules =
-      [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
-    kernelModules = [ "kvm-intel" ];
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "udev.log_priority=3" ];
-    # extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
-
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/4937f733-3686-4e34-9c21-00cde4efdae1";
-      fsType = "ext4";
-    };
-    "/boot" = {
-      device = "/dev/disk/by-uuid/D081-5EDD";
-      fsType = "vfat";
-    };
-  };
-
-  swapDevices = [ ];
 
   nix = { settings.experimental-features = [ "nix-command" "flakes" ]; };
 
@@ -44,29 +17,13 @@ in {
 
   networking = {
     firewall = { enable = true; };
-    hostName = "toty";
-    nat = {
-      enable = true;
-      internalInterfaces = [ "ve-*" ];
-      externalInterface = "wlp8s0";
-    };
     networkmanager = {
       enable = true;
       unmanaged = [ "interface-name:ve-*" ];
     };
-    # wireguard.interfaces.wg0 = {
-    #   ips = [ "10.10.10.42/24" ];
-    #   privateKeyFile = "/root/secret/wireguard";
-    #   peers = [{
-    #     publicKey = "TpzpokNmwEtlccYx0U+yKy5+xUeFp9RisO7FnnwZJlA=";
-    #     allowedIPs = [ "10.10.10.0/24" ];
-    #     endpoint = "calculon.eket.su:51820";
-    #     persistentKeepalive = 25;
-    #   }];
-    # };
   };
 
-  time.timeZone = "Europe/Bucharest";
+  time.timeZone = "Europe/Lisbon";
 
   systemd.services.NetworkManager-wait-online.enable = false;
 
@@ -93,23 +50,9 @@ in {
       support32Bit = true;
       package = pkgs.pulseaudioFull;
     };
-
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      prime = {
-        offload.enable = false;
-        nvidiaBusId = "PCI:1:0:0";
-        intelBusId = "PCI:0:2:0";
-      };
-    };
   };
 
   virtualisation.virtualbox.host.enable = true;
-
-  virtualisation.docker = {
-    enable = true;
-    enableNvidia = false;
-  };
 
   sound = {
     enable = true;
@@ -138,7 +81,6 @@ in {
       # disabling touchpad acceleration
       touchpad = { accelProfile = "flat"; };
     };
-    wacom.enable = true;
   };
 
   services.openssh = {
@@ -147,12 +89,9 @@ in {
   };
 
   services.blueman.enable = true;
-  services.teamviewer.enable = true;
 
   services.picom.enable = true;
   services.picom.vSync = true;
-
-  services.xmr-stak.cudaSupport = true;
 
   services.physlock = {
     enable = true;
@@ -161,26 +100,6 @@ in {
 
   systemd.services.physlock.serviceConfig.ExecStart = lib.mkForce ''
     ${pkgs.physlock}/bin/physlock -dsm -p "Hello. Do not power me off please."'';
-
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.brlaser ];
-  };
-
-  services.pcscd = {
-    enable = true;
-    plugins = [ pkgs.acsccid ];
-  };
-
-  # services.tor = {
-  #   enable=true;
-  #   client.enable=true;
-  # };
-
-  # services.privoxy = {
-  #   enable = true;
-  #   enableTor = true;
-  # };
 
   fonts = {
     enableDefaultFonts = true;
@@ -244,7 +163,7 @@ in {
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
-    systemPackages = [ nvidia-offload pkgs.micro pkgs.bat ];
+    systemPackages = [ pkgs.micro pkgs.bat ];
   };
 
   programs = {
