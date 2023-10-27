@@ -1,5 +1,4 @@
-{ pkgs, lib, config, ... }:
-{
+{ pkgs, lib, config, ... }: {
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -74,7 +73,7 @@
     libinput = {
       enable = true;
       # disabling mouse acceleration
-      mouse = { accelProfile = "flat"; };
+      mouse = { accelProfile = "adaptive"; };
 
       # disabling touchpad acceleration
       touchpad = { accelProfile = "flat"; };
