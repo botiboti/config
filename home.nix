@@ -32,6 +32,7 @@
     vscodium
     discord
     binutils
+    autorandr
     glxinfo
     linuxHeaders
     nmap

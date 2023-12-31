@@ -6,6 +6,8 @@
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.blacklistedKernelModules =
+    [ "psmouse" "intel_hid" "ucsi_acpi" "typec_ucsi" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -46,6 +48,17 @@
   users.extraGroups.vboxusers.members = [ "boti" ];
 
   services.xserver.libinput.touchpad.accelSpeed = "0.8";
+  services.tlp.enable = true;
+
+  environment.systemPackages =
+    [ pkgs.libva-utils pkgs.xinput_calibrator pkgs.onboard ];
+
+  environment.variables = {
+    VDPAU_DRIVER = "va_gl";
+    LIBVA_DRIVER_NAME = "iHD";
+  };
+
+  environment.sessionVariables = { MOZ_USE_XINPUT2 = "1"; };
 
   users.users = {
     boti = {

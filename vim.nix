@@ -9,6 +9,7 @@
       nvim-treesitter
       yankring
       vim-airline
+      vim-go
       elm-vim
       i3config-vim
       fzf-vim
