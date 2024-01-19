@@ -82,7 +82,7 @@
   };
 
   xresources.extraConfig = builtins.readFile ./xresources/.Xresources;
-  xresources.properties = { "Xft.dpi" = 150; };
+  xresources.properties = { "Xft.dpi" = 100; };
 
   programs = {
 
@@ -173,7 +173,7 @@
 
     name = "Vanilla-DMZ-AA";
     package = pkgs.vanilla-dmz;
-    size = 64;
+    size = 20;
   };
 
   xsession.windowManager.i3 = let modifier = "Mod4";

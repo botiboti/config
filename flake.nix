@@ -21,6 +21,14 @@
         ./tot.nix
       ];
     };
+    nixosConfigurations.thinkpad = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+      	inputs.home-manager.nixosModules.home-manager
+      	./configuration.nix
+      	./thinkpad.nix
+      ];	
+    };
   };
 
 }
