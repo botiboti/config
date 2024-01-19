@@ -10,30 +10,29 @@
 
   home-manager.users.botondf = import ./home.nix;
 
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/39f685d5-47f3-482f-8204-6863b363144c";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/39f685d5-47f3-482f-8204-6863b363144c";
+    fsType = "ext4";
+  };
 
-  boot.initrd.luks.devices."luks-4ad4a4e4-39f2-4376-a11c-d1006d578eca".device = "/dev/disk/by-uuid/4ad4a4e4-39f2-4376-a11c-d1006d578eca";
+  boot.initrd.luks.devices."luks-4ad4a4e4-39f2-4376-a11c-d1006d578eca".device =
+    "/dev/disk/by-uuid/4ad4a4e4-39f2-4376-a11c-d1006d578eca";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/254B-FF1D";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/254B-FF1D";
+    fsType = "vfat";
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/20840964-ee7e-40bb-9175-be7b372d646c"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/20840964-ee7e-40bb-9175-be7b372d646c"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -44,35 +43,25 @@
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.opengl.extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-  ];
+  hardware.cpu.amd.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.opengl.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
 
-  boot.initrd.luks.devices."luks-08e1e089-9738-483d-9bbb-0d16d541f793".device = "/dev/disk/by-uuid/08e1e089-9738-483d-9bbb-0d16d541f793";
+  boot.initrd.luks.devices."luks-08e1e089-9738-483d-9bbb-0d16d541f793".device =
+    "/dev/disk/by-uuid/08e1e089-9738-483d-9bbb-0d16d541f793";
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
-  users.groups.nix-users.members = [ "botondf" ]; 
-  users.extraGroups.vboxusers.members = [ "botondf" ];
 
+  users.groups.nix-users.members = [ "botondf" ];
+  users.extraGroups.vboxusers.members = [ "botondf" ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_PT.UTF-8";
-    LC_IDENTIFICATION = "pt_PT.UTF-8";
-    LC_MEASUREMENT = "pt_PT.UTF-8";
-    LC_MONETARY = "pt_PT.UTF-8";
-    LC_NAME = "pt_PT.UTF-8";
-    LC_NUMERIC = "pt_PT.UTF-8";
-    LC_PAPER = "pt_PT.UTF-8";
-    LC_TELEPHONE = "pt_PT.UTF-8";
-    LC_TIME = "pt_PT.UTF-8";
-  };
-
+  services.udev.extraRules = ''
+    ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1022" ATTR{device}=="0x1483" ATTR{power/wakeup}="disabled"
+  '';
   services.xserver.libinput.touchpad.accelSpeed = "0.8";
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -81,14 +70,14 @@
   users.users.botondf = {
     isNormalUser = true;
     description = "Botond Ferenczi";
-    extraGroups = [ 
-      "networkmanager" 
+    extraGroups = [
+      "networkmanager"
       "wheel"
       "audio"
       "video"
       "dialout"
       "docker"
-      "adbusers" 
+      "adbusers"
     ];
     packages = with pkgs; [ git tree firefox ];
   };

@@ -91,15 +91,15 @@
   services.picom.vSync = true;
 
   services.physlock = {
-    enable = true;
+    enable = false;
     lockOn.suspend = true;
   };
 
-  systemd.services.physlock.serviceConfig.ExecStart = lib.mkForce ''
-    ${pkgs.physlock}/bin/physlock -dsm -p "Hello. Do not power me off please."'';
+#  systemd.services.physlock.serviceConfig.ExecStart = lib.mkForce ''
+#    ${pkgs.physlock}/bin/physlock -dsm -p "Hello. Do not power me off please."'';
 
   fonts = {
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
     fontconfig = {
       enable = true;
       cache32Bit = true;
@@ -109,7 +109,7 @@
         serif = [ "DejaVu Serif" ];
       };
     };
-    fonts = with pkgs; [
+    packages = with pkgs; [
       carlito
       corefonts
       fira
