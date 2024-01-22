@@ -91,12 +91,10 @@
   services.picom.vSync = true;
 
   services.physlock = {
-    enable = false;
+    enable = true;
     lockOn.suspend = true;
+    lockMessage = "Hello. Do not power me off please.";
   };
-
-#  systemd.services.physlock.serviceConfig.ExecStart = lib.mkForce ''
-#    ${pkgs.physlock}/bin/physlock -dsm -p "Hello. Do not power me off please."'';
 
   fonts = {
     enableDefaultPackages = true;

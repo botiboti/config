@@ -46,6 +46,7 @@
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.opengl.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+  hardware.enableAllFirmware = true;
 
   boot.initrd.luks.devices."luks-08e1e089-9738-483d-9bbb-0d16d541f793".device =
     "/dev/disk/by-uuid/08e1e089-9738-483d-9bbb-0d16d541f793";
@@ -58,14 +59,38 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
+  security.pam.services.xlock.fprintAuth = true;
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
   services.udev.extraRules = ''
     ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1022" ATTR{device}=="0x1483" ATTR{power/wakeup}="disabled"
   '';
-  services.xserver.libinput.touchpad.accelSpeed = "0.8";
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver = {
+    xautolock = {
+      enable = true;
+      locker = "${pkgs.xlockmore}/bin/xlock";
+      nowlocker = "${pkgs.xlockmore}/bin/xlock";
+      extraOptions = [ "-detectsleep" ];
+    };
+    libinput.touchpad.accelSpeed = "0.8";
+    videoDrivers = [ "amdgpu" ];
+  };
+  services.acpid = {
+    enable = true;
+    lidEventCommands = ''
+      export PATH=$PATH:/run/current-system/sw/bin
 
+      lid_state=$(cat /proc/acpi/button/lid/LID/state | awk '{print $NF}')
+      if [ $lid_state = "closed" ]; then
+        systemctl suspend
+      fi
+    '';
+
+    powerEventCommands = ''
+      systemctl suspend
+    '';
+  };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.botondf = {
     isNormalUser = true;

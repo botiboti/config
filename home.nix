@@ -1,9 +1,9 @@
 { pkgs, lib, ... }: {
   home.packages = with pkgs; [
+    xlockmore
     fzf
     nixfmt
     transmission-gtk
-    soundux
     networkmanager_dmenu
     rofi
     volumeicon
@@ -19,16 +19,12 @@
     elmPackages.elm-format
     xdotool
     pavucontrol
-    librecad
     simplescreenrecorder
     keepass
     pciutils
     firefox
-    spotify
     todo
-    jrnl
     htop
-    opensc
     vscodium
     discord
     binutils
@@ -40,7 +36,6 @@
     slack
     postgresql
     yarn
-    root
     xorg.xinit
     usbutils
     nixpkgs-fmt
@@ -50,11 +45,8 @@
     service-wrapper
     socat
     tdesktop
-    texlive.combined.scheme-full
     dconf
     lxappearance
-    # gnome3.adwaita-icon-theme
-    steam
     monero-gui
   ];
 
