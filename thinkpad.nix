@@ -26,6 +26,9 @@
   boot.initrd.luks.devices."luks-4ad4a4e4-39f2-4376-a11c-d1006d578eca".device =
     "/dev/disk/by-uuid/4ad4a4e4-39f2-4376-a11c-d1006d578eca";
 
+  boot.initrd.luks.devices."luks-08e1e089-9738-483d-9bbb-0d16d541f793".device =
+    "/dev/disk/by-uuid/08e1e089-9738-483d-9bbb-0d16d541f793";
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/254B-FF1D";
     fsType = "vfat";
@@ -40,16 +43,15 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.opengl.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
-  hardware.enableAllFirmware = true;
-
-  boot.initrd.luks.devices."luks-08e1e089-9738-483d-9bbb-0d16d541f793".device =
-    "/dev/disk/by-uuid/08e1e089-9738-483d-9bbb-0d16d541f793";
+  hardware = {
+    cpu.amd.updateMicrocode =
+      lib.mkDefault config.hardware.enableRedistributableFirmware;
+    opengl.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+    enableAllFirmware = true;
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -60,37 +62,42 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   security.pam.services.xlock.fprintAuth = true;
-  services.fprintd.enable = true;
-  services.fprintd.tod.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
-  services.udev.extraRules = ''
-    ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1022" ATTR{device}=="0x1483" ATTR{power/wakeup}="disabled"
-  '';
-  services.xserver = {
-    xautolock = {
+  services = {
+    fprintd = {
       enable = true;
-      locker = "${pkgs.xlockmore}/bin/xlock";
-      nowlocker = "${pkgs.xlockmore}/bin/xlock";
-      extraOptions = [ "-detectsleep" ];
+      tod.enable = true;
+      tod.driver = pkgs.libfprint-2-tod1-goodix;
     };
-    libinput.touchpad.accelSpeed = "0.8";
-    videoDrivers = [ "amdgpu" ];
-  };
-  services.acpid = {
-    enable = true;
-    lidEventCommands = ''
-      export PATH=$PATH:/run/current-system/sw/bin
+    udev.extraRules = ''
+      ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1022" ATTR{device}=="0x1483" ATTR{power/wakeup}="disabled"
+    '';
+    xserver = {
+      xautolock = {
+        enable = true;
+        locker = "${pkgs.xlockmore}/bin/xlock";
+        nowlocker = "${pkgs.xlockmore}/bin/xlock";
+        extraOptions = [ "-detectsleep" ];
+      };
+      libinput.touchpad.accelSpeed = "0.8";
+      videoDrivers = [ "amdgpu" ];
+    };
+    acpid = {
+      enable = true;
+      lidEventCommands = ''
+        export PATH=$PATH:/run/current-system/sw/bin
 
-      lid_state=$(cat /proc/acpi/button/lid/LID/state | awk '{print $NF}')
-      if [ $lid_state = "closed" ]; then
+        lid_state=$(cat /proc/acpi/button/lid/LID/state | awk '{print $NF}')
+        if [ $lid_state = "closed" ]; then
+          systemctl suspend
+        fi
+      '';
+
+      powerEventCommands = ''
         systemctl suspend
-      fi
-    '';
-
-    powerEventCommands = ''
-      systemctl suspend
-    '';
+      '';
+    };
   };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.botondf = {
     isNormalUser = true;

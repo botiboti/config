@@ -8,7 +8,7 @@
 
   nix = { settings.experimental-features = [ "nix-command" "flakes" ]; };
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
   nixpkgs.config = { allowUnfree = true; };
 
@@ -28,12 +28,6 @@
     opengl = {
       enable = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
-      ];
     };
 
     enableRedistributableFirmware = true;
@@ -49,8 +43,6 @@
     };
   };
 
-  virtualisation.virtualbox.host.enable = true;
-
   sound = {
     enable = true;
     mediaKeys.enable = true;
@@ -58,7 +50,6 @@
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "intel" ];
     layout = "us, hu";
     xkbModel = "pc104";
     xkbOptions = "grp:switch";
@@ -86,9 +77,6 @@
   };
 
   services.blueman.enable = true;
-
-  services.picom.enable = true;
-  services.picom.vSync = true;
 
   services.physlock = {
     enable = true;

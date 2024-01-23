@@ -22,9 +22,9 @@ in {
   boot = {
     initrd.availableKernelModules =
       [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
-    kernelModules = [ "kvm-intel" ];
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "udev.log_priority=3" ];
+      kernelModules = [ "kvm-intel" ];
+      kernelPackages = pkgs.linuxPackages_latest;
+      kernelParams = [ "udev.log_priority=3" ];
     # extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
 
@@ -39,6 +39,8 @@ in {
     };
   };
 
+  virtualisation.virtualbox.host.enable = true;
+
   environment.systemPackages = [ nvidia-offload ];
   hardware = {
     nvidia = {
@@ -49,32 +51,42 @@ in {
         intelBusId = "PCI:0:2:0";
       };
     };
-  };
-
-  users.groups.nix-users.members = [ "botiboti" ];
-  users.extraGroups.vboxusers.members = [ "botiboti" ];
-
-  users.users = {
-    botiboti = {
-      isNormalUser = true;
-      uid = 1000;
-      extraGroups = [
-        "wheel"
-        "adbusers"
-        "networkmanager"
-        "dialout"
-        "audio"
-        "video"
-        "docker"
+    opengl = {
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
       ];
+
     };
-    ssdd = {
-      isNormalUser = true;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZOC3FgP/8TUK62obAW/uDENhdXkLGAjickSF53zncg ssdd@eki"
-      ];
+
+    services.xserver.videoDriver = [ "intel" ];
+
+    users.groups.nix-users.members = [ "botiboti" ];
+    users.extraGroups.vboxusers.members = [ "botiboti" ];
+
+    users.users = {
+      botiboti = {
+        isNormalUser = true;
+        uid = 1000;
+        extraGroups = [
+          "wheel"
+          "adbusers"
+          "networkmanager"
+          "dialout"
+          "audio"
+          "video"
+          "docker"
+        ];
+      };
+      ssdd = {
+        isNormalUser = true;
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZOC3FgP/8TUK62obAW/uDENhdXkLGAjickSF53zncg ssdd@eki"
+        ];
+      };
     };
-  };
 
   # DO NOT CHANGE
   system.stateVersion = "18.09";
