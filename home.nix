@@ -74,7 +74,6 @@
   };
 
   xresources.extraConfig = builtins.readFile ./xresources/.Xresources;
-  xresources.properties = { "Xft.dpi" = 100; };
 
   programs = {
 
