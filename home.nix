@@ -152,7 +152,7 @@
         position = 7;
         settings = {
           timezone = "Europe/Lisbon";
-          format = " %H:%M PT ";
+          format = "%A, %d.%m.%Y %H:%M:%S";
         };
       };
 

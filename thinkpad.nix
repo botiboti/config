@@ -96,6 +96,9 @@
         systemctl suspend
       '';
     };
+    openvpn.servers = {
+      openiVPN = { config = "config /root/nixos/openvpn/openiVPN.conf"; };
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

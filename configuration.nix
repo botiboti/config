@@ -33,7 +33,7 @@
     enableRedistributableFirmware = true;
     bluetooth = {
       enable = true;
-      powerOnBoot = false;
+      powerOnBoot = true;
     };
 
     pulseaudio = {
