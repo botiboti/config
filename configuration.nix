@@ -84,6 +84,8 @@
     lockMessage = "Hello. Do not power me off please.";
   };
 
+  users.defaultUserShell = pkgs.zsh;
+
   fonts = {
     enableDefaultPackages = true;
     fontconfig = {
@@ -127,7 +129,7 @@
   programs = {
     adb.enable = true;
     light.enable = true;
-    # bash.promptInit = ''PS1="\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]Ξ \[\033[0m\]"'';
+    zsh.enable = true;
   };
 
   system.activationScripts.diff = ''

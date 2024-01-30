@@ -76,15 +76,30 @@
   xresources.extraConfig = builtins.readFile ./xresources/.Xresources;
 
   programs = {
-
-    bash = {
+    zsh = {
       enable = true;
-      initExtra = ''
-        source ~/.nix-profile/share/git/contrib/completion/git-prompt.sh
-        export PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]$(__git_ps1 "(%s) ")Ξ \[\033[0m\]'
-      '';
-      bashrcExtra = lib.mkBefore "source ~/config/.custom_commands.sh";
+      # promptInit = ''
+      #   source ~/.nix-profile/share/git/contrib/completion/git-prompt.sh
+      #   export PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]$(__git_ps1 "(%s) ")Ξ \[\033[0m\]'
+      # '';
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "git" "thefuck" "z" ];
+        theme = "takashiyoshida";
+      };
+      plugins = [{
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "v0.8.0";
+          sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
+        };
+      }];
     };
+
+    thefuck.enable = true;
 
     git = {
       enable = true;
