@@ -101,6 +101,8 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [ zulip ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.botondf = {
     isNormalUser = true;
