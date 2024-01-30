@@ -33,18 +33,15 @@
     linuxHeaders
     nmap
     zoom-us
-    slack
     postgresql
     yarn
     xorg.xinit
     usbutils
     nixpkgs-fmt
     unzip
-    skypeforlinux
     lsscsi
     service-wrapper
     socat
-    tdesktop
     dconf
     lxappearance
     monero-gui

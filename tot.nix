@@ -68,7 +68,7 @@
   services.tlp.enable = true;
 
   environment.systemPackages =
-    [ pkgs.libva-utils pkgs.xinput_calibrator pkgs.onboard ];
+    with pkgs; [ libva-utils xinput_calibrator onboard slack tdesktop ];
 
   environment.variables = {
     VDPAU_DRIVER = "va_gl";

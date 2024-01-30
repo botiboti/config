@@ -41,7 +41,7 @@ in {
 
   virtualisation.virtualbox.host.enable = true;
 
-  environment.systemPackages = [ nvidia-offload ];
+  environment.systemPackages = [ nvidia-offload pkgs.slack pkgs.tdesktop ];
   hardware = {
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
