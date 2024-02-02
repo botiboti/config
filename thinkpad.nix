@@ -101,7 +101,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ zulip ];
+  environment.systemPackages = with pkgs; [ zulip thunderbird ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.botondf = {
