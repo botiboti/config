@@ -54,6 +54,8 @@
   networking.networkmanager.enable =
     true; # Easiest to use and most distros use this by default.
 
+  virtualisation.virtualbox.host.enable = true;
+
   users.groups.nix-users.members = [ "boti" ];
   users.extraGroups.vboxusers.members = [ "boti" ];
 

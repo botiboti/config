@@ -74,8 +74,7 @@
     starship = {
       enable = true;
       settings = {
-        character = { success_symbol = "[λ➜](bold green)"; };
-        nix_shell = { symbol = "❄️"; };
+        character = { success_symbol = "[➜](bold green)"; };
       };
     };
     zsh = {
